@@ -8,8 +8,8 @@
 import streamlit as st
 from logic import recommend_account, recommend_allocation, generate_tips
 
-st.set_page_config(page_title="SmartNest", layout="centered")
-st.title("🏡 SmartNest 加拿大理财推荐")
+st.set_page_config(page_title="SmartInvest", layout="centered")
+st.title("🏡 SmartInvest 加拿大理财推荐")
 
 st.markdown("为你量身打造的 TFSA / RRSP / 配置建议 —— 简单 3 分钟")
 

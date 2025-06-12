@@ -36,12 +36,20 @@ with st.form("user_profile"):
     submitted = st.form_submit_button("🔍 获取建议" if lang == "中文" else "🔍 Get Recommendation")
 
 # --- 生成报告 PDF 的函数 ---
-def generate_pdf(content):
+def generate_pdf(content, lang):
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Arial", size=12)
+
+    if lang == "中文":
+        # 添加中文字体（需要有 .ttf 文件）
+        pdf.add_font("simhei", "", "simhei.ttf", uni=True)
+        pdf.set_font("simHei", size=12)
+    else:
+        pdf.set_font("Arial", size=12)
+
     for line in content.split('\n'):
         pdf.multi_cell(0, 10, txt=line)
+
     return pdf.output(dest="S").encode("latin1")
 
 
@@ -66,7 +74,7 @@ if submitted:
     final_text = f"SmartNest 理财报告\n\n账户建议:\n{acc_text}\n\n配置建议:\n{alloc_text}\n\n理财建议:\n{tips_text}" \
         if lang == "中文" else f"SmartNest Financial Report\n\nAccount Tips:\n{acc_text}\n\nAllocation:\n{alloc_text}\n\nTips:\n{tips_text}"
 
-    pdf_bytes = generate_pdf(final_text)
+    pdf_bytes = generate_pdf(final_text, lang)
     b64_pdf = base64.b64encode(pdf_bytes).decode()
     href = f'<a href="data:application/octet-stream;base64,{b64_pdf}" download="smartnest_report.pdf">📥 下载 PDF 报告 / Download PDF Report</a>'
     st.markdown(href, unsafe_allow_html=True)

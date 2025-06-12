@@ -111,8 +111,16 @@ git add .
 git commit -m "Add: your feature description"
 git push origin feature/your-feature-name
 
-e.g.,
+e.g.，
+First time push:
+git add .
+git commit -m "首次提交：上传 Smart Invest App 项目"
+git push -u origin main
 
+Not the first time:
+git add .
+git commit -m "change description"
+git push
 
 ```
 

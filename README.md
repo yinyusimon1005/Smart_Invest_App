@@ -45,6 +45,9 @@ streamlit run app.py
 
 Welcome to the development of Smart Invest App 🎉
 
+<img width="579" height="360" alt="图片" src="https://github.com/user-attachments/assets/7d24085a-2774-4e9b-a727-ad565ad96437" />
+
+
 ### 📥 第一次下载项目 / Clone this repository
 
 请在终端中运行以下命令（只需一次）：

@@ -15,6 +15,7 @@ email = st.text_input("留下你的邮箱，获取PDF报告 / Enter email to rec
 if email and "@" not in email:
     st.warning("邮箱格式错误，请重新输入。" if lang == "中文" else "Invalid email format, please re-enter.")
 
+
 # --- 表单输入 ---
 with st.form("user_profile"):
     age = st.selectbox("你的年龄是多少？" if lang == "中文" else "Your age:",

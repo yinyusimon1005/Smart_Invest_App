@@ -3,7 +3,7 @@ from logic import recommend_account, recommend_allocation, generate_tips
 
 # 页面设置
 st.set_page_config(page_title="Smart Invest 智能理财助手", layout="centered")
-st.title("🏡 SmartNest 智能理财推荐")
+st.title("🏡 Smart Invest  智能理财推荐")
 
 # --- 多语言切换 ---
 lang = st.radio("选择语言 / Choose Language", ["中文", "English"])

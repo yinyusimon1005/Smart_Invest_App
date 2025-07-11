@@ -45,6 +45,7 @@ streamlit run app.py
 
 Welcome to the development of Smart Invest App 🎉
 
+### # First time Git Bash:
 <img width="579" height="360" alt="图片" src="https://github.com/user-attachments/assets/7d24085a-2774-4e9b-a727-ad565ad96437" />
 
 

@@ -1,8 +1,5 @@
 import streamlit as st
 from logic import recommend_account, recommend_allocation, generate_tips
-from fpdf import FPDF
-import base64
-import io
 
 # 页面设置
 st.set_page_config(page_title="SmartNest 智能理财助手", layout="centered")
@@ -13,6 +10,10 @@ lang = st.radio("选择语言 / Choose Language", ["中文", "English"])
 
 # --- 邮箱收集 ---
 email = st.text_input("留下你的邮箱，获取PDF报告 / Enter email to receive your report (optional):")
+
+# 简单邮箱格式检查
+if email and "@" not in email:
+    st.warning("邮箱格式错误，请重新输入。" if lang == "中文" else "Invalid email format, please re-enter.")
 
 # --- 表单输入 ---
 with st.form("user_profile"):
@@ -35,28 +36,6 @@ with st.form("user_profile"):
 
     submitted = st.form_submit_button("🔍 获取建议" if lang == "中文" else "🔍 Get Recommendation")
 
-# --- 生成报告 PDF 的函数 ---
-# def generate_pdf(content, lang):
-#     pdf = FPDF()
-#     pdf.add_page()
-
-#     if lang == "中文":
-#         # 确保 simhei.ttf 存在于当前目录下
-#         font_path = "simhei.ttf"
-#         pdf.add_font("simhei", "", font_path, uni=True)
-#         pdf.set_font("simhei", size=12)
-#     else:
-#         pdf.set_font("Arial", size=12)
-
-#     for line in content.split('\n'):
-#         pdf.multi_cell(0, 10, txt=line)
-
-#     pdf_output = io.BytesIO()
-#     pdf.output(pdf_output)
-#     pdf_bytes = pdf_output.getvalue()
-#     return pdf_bytes
-
-
 # --- 结果输出 ---
 if submitted:
     st.subheader("📊 推荐报告" if lang == "中文" else "📊 Personalized Report")
@@ -74,14 +53,11 @@ if submitted:
     st.markdown("### 💡 理财建议" if lang == "中文" else "### 💡 Smart Tips")
     st.write(tips_text)
 
-    # 生成 PDF 并提供下载链接
-    final_text = f"SmartNest 理财报告\n\n账户建议:\n{acc_text}\n\n配置建议:\n{alloc_text}\n\n理财建议:\n{tips_text}" \
-        if lang == "中文" else f"SmartNest Financial Report\n\nAccount Tips:\n{acc_text}\n\nAllocation:\n{alloc_text}\n\nTips:\n{tips_text}"
-
-    pdf_bytes = generate_pdf(final_text, lang)
-    b64_pdf = base64.b64encode(pdf_bytes).decode()
-    href = f'<a href="data:application/octet-stream;base64,{b64_pdf}" download="smartnest_report.pdf">📥 下载 PDF 报告 / Download PDF Report</a>'
-    st.markdown(href, unsafe_allow_html=True)
-
-    if email:
-        st.success("✅ 报告准备完成，你可以下载它。如果留下邮箱，未来我们会发送更新。")
+    # ✅ 打印提示代替 PDF 下载
+    # PDF 打印提示（根据语言）
+    print_tip = (
+        "📄 如需保存整个推荐报告为 PDF，请点击网页右上角菜单（⋮），选择 **Print / 打印**，然后选择 **保存为 PDF**。请确保在“更多设置”中勾选 ✅ **打印背景图形**，以保留颜色和样式。"
+        if lang == "中文"
+        else "📄 To save the full report as a PDF, click the top-right menu (⋮), select **Print**, then choose **Save as PDF**. Make sure to check ✅ **Print background graphics** under 'More settings' to preserve color and layout."
+    )
+    st.info(print_tip, icon="💡")

@@ -41,16 +41,24 @@ def generate_pdf(content, lang):
     pdf.add_page()
 
     if lang == "中文":
-        # 添加中文字体（需要有 .ttf 文件）
         pdf.add_font("simhei", "", "simhei.ttf", uni=True)
-        pdf.set_font("simHei", size=12)
+        pdf.set_font("simhei", size=12)
     else:
         pdf.set_font("Arial", size=12)
 
     for line in content.split('\n'):
         pdf.multi_cell(0, 10, txt=line)
 
+<<<<<<< Updated upstream
     return pdf.output(dest="S").encode("latin1")
+=======
+    # 使用 BytesIO 返回字节流，避免 encode 问题
+    pdf_output = io.BytesIO()
+    pdf.output(pdf_output)
+    pdf_bytes = pdf_output.getvalue()
+    return pdf_bytes
+
+>>>>>>> Stashed changes
 
 
 # --- 结果输出 ---

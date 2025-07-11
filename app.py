@@ -50,7 +50,7 @@ def generate_pdf(content, lang):
     for line in content.split('\n'):
         pdf.multi_cell(0, 10, txt=line)
 
-    return pdf.output(dest="S").encode("latin1")
+    return pdf.output(dest="S").encode("utf-8")  # 返回 PDF 字节流
 
 
 # --- 结果输出 ---

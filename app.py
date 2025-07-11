@@ -41,7 +41,9 @@ def generate_pdf(content, lang):
     pdf.add_page()
 
     if lang == "中文":
-        pdf.add_font("simhei", "", "simhei.ttf", uni=True)
+        # 确保 simhei.ttf 存在于当前目录下
+        font_path = "simhei.ttf"
+        pdf.add_font("simhei", "", font_path, uni=True)
         pdf.set_font("simhei", size=12)
     else:
         pdf.set_font("Arial", size=12)
@@ -49,11 +51,11 @@ def generate_pdf(content, lang):
     for line in content.split('\n'):
         pdf.multi_cell(0, 10, txt=line)
 
-    # 使用 BytesIO 返回字节流，避免 encode 问题
     pdf_output = io.BytesIO()
     pdf.output(pdf_output)
     pdf_bytes = pdf_output.getvalue()
     return pdf_bytes
+
 
 
 # --- 结果输出 ---

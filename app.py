@@ -36,26 +36,25 @@ with st.form("user_profile"):
     submitted = st.form_submit_button("🔍 获取建议" if lang == "中文" else "🔍 Get Recommendation")
 
 # --- 生成报告 PDF 的函数 ---
-def generate_pdf(content, lang):
-    pdf = FPDF()
-    pdf.add_page()
+# def generate_pdf(content, lang):
+#     pdf = FPDF()
+#     pdf.add_page()
 
-    if lang == "中文":
-        # 确保 simhei.ttf 存在于当前目录下
-        font_path = "simhei.ttf"
-        pdf.add_font("simhei", "", font_path, uni=True)
-        pdf.set_font("simhei", size=12)
-    else:
-        pdf.set_font("Arial", size=12)
+#     if lang == "中文":
+#         # 确保 simhei.ttf 存在于当前目录下
+#         font_path = "simhei.ttf"
+#         pdf.add_font("simhei", "", font_path, uni=True)
+#         pdf.set_font("simhei", size=12)
+#     else:
+#         pdf.set_font("Arial", size=12)
 
-    for line in content.split('\n'):
-        pdf.multi_cell(0, 10, txt=line)
+#     for line in content.split('\n'):
+#         pdf.multi_cell(0, 10, txt=line)
 
-    pdf_output = io.BytesIO()
-    pdf.output(pdf_output)
-    pdf_bytes = pdf_output.getvalue()
-    return pdf_bytes
-
+#     pdf_output = io.BytesIO()
+#     pdf.output(pdf_output)
+#     pdf_bytes = pdf_output.getvalue()
+#     return pdf_bytes
 
 
 # --- 结果输出 ---
